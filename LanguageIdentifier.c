@@ -23,6 +23,7 @@ int main () {
 
     //Begining the reading of the files
     int i = 0,indice=0;
+    int espaniol=0,ingles=0,portugues=0,aleman=0,frances=0,italiano=0,chino=0,japones=0;
     char ch, fileWords[25];
     FILE *fp;
 
@@ -34,12 +35,19 @@ int main () {
       return 1;
     }
 
-    printf("The contents of the file are:\n");
+    //printf("The contents of the file are:\n");
 
     while((ch = fgetc(fp)) != EOF){
       if (ch == '\n'){
         fileWords[indice+1]='\0';
-        printf("%s\n",fileWords);
+        //printf("%s\n",fileWords);
+        for (int j = 0; j < count; j++) {
+          if(strcmp(fileWords,n[j]) == 0){
+             espaniol ++;
+             printf("%s\t",n[j]);
+             printf("%s\n",fileWords);
+          }
+        }
         memset(fileWords, 0, sizeof(fileWords));
         indice = 0;
       }
@@ -49,10 +57,13 @@ int main () {
       }
     }
 
+    float porcentaje = espaniol/count;
+    printf("%f\n",porcentaje);
+    printf("tienes un %c%f de posibilidades de que sea espaniol\n",'%',porcentaje);
+
     fclose(fp);
-    for(i=0; i < count; i++){
+    /*for(i=0; i < count; i++){
         printf("Esta es la plabra %d:\t%s\n",i+1,n[i]);
-        int espaniol=0,ingles=0,portugues=0,aleman=0,frances=0,italiano=0,chino=0,japones=0;
-    }
+    }*/
     memset(fileWords, 0, sizeof(fileWords));
 }
