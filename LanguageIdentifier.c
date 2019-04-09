@@ -21,9 +21,38 @@ int main () {
         count++;
     }
 
-    int i = 0;
+    //Begining the reading of the files
+    int i = 0,indice=0;
+    char ch, fileWords[25];
+    FILE *fp;
+
+    fp = fopen("espaniol.txt", "r"); // read mode
+
+    if (fp == NULL)
+    {
+      perror("Error while opening the file.\n");
+      return 1;
+    }
+
+    printf("The contents of the file are:\n");
+
+    while((ch = fgetc(fp)) != EOF){
+      if (ch == '\n'){
+        fileWords[indice+1]='\0';
+        printf("%s\n",fileWords);
+        memset(fileWords, 0, sizeof(fileWords));
+        indice = 0;
+      }
+      else{
+        fileWords[indice] = ch;
+        indice++;
+      }
+    }
+
+    fclose(fp);
     for(i=0; i < count; i++){
-            printf("Esta es la plabra %d:\t%s\n",i+1,n[i]);
+        printf("Esta es la plabra %d:\t%s\n",i+1,n[i]);
         int espaniol=0,ingles=0,portugues=0,aleman=0,frances=0,italiano=0,chino=0,japones=0;
     }
+    memset(fileWords, 0, sizeof(fileWords));
 }
