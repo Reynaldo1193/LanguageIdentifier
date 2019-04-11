@@ -57,9 +57,9 @@ int main () {
       }
     }
 
-    float porcentaje = espaniol/count;
-    printf("%f\n",porcentaje);
-    printf("tienes un %c%f de posibilidades de que sea espaniol\n",'%',porcentaje);
+    float porcentaje = (((float) espaniol)/((float)count))*100;
+    printf("%d\n",count);
+    printf("tienes un %c%.2f de posibilidades de que sea espaniol\n",'%',porcentaje);
 
     fclose(fp);
     /*for(i=0; i < count; i++){
