@@ -41,7 +41,7 @@ int main () {
       if (ch == '\n'){
         fileWords[indice+1]='\0';
         //printf("%s\n",fileWords);
-        for (int j = 0; j < count; j++) {
+        for (int j = 0; j <= count; j++) {
           if(strcmp(fileWords,n[j]) == 0){
              espaniol ++;
              printf("%s\t",n[j]);
@@ -58,7 +58,7 @@ int main () {
     }
 
     float porcentaje = (((float) espaniol)/((float)count))*100;
-    printf("%d\n",count);
+    //printf("%d\n",count);
     printf("tienes un %c%.2f de posibilidades de que sea espaniol\n",'%',porcentaje);
 
     fclose(fp);
