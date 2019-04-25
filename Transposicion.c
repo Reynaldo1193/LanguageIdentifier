@@ -5,6 +5,7 @@
 
 void IngresarDatos (char* c);
 void Transposicion (char* porCifrar, int tamanio, int llave);
+void LanguageIdentifier(char **matriz);
 int Menu();
 
 int main() {
@@ -48,8 +49,54 @@ void Transposicion (char* porCifrar, int tamanio, int llave){
     for (int i = 0; i < filas; i++) {
       printf("%c",matriz[j][i]);
     }
-    printf("\t\talto\n");
+    //printf("\t\talto\n");
   }
+  LanguageIdentifier(matriz);
   printf("\n" );
+}
+
+void LanguageIdentifier(char **matriz){
+    int indice =0, count=0;
+    int espaniol=0;
+    char ch, fileWords[25];
+    FILE *fp;
+
+    fp = fopen("espaniol.txt", "r"); // read mode
+
+    if (fp == NULL)
+    {
+      perror("Error while opening the file.\n");
+      return 1;
+    }
+
+    while((ch = fgetc(fp)) != EOF){
+      if (ch == '\n'){
+        fileWords[indice+1]='\0';
+        //printf("%s\n",fileWords);
+        for (int j = 0; j <= count; j++) {
+          if(strstr(matriz[j],fileWords) != nullptr ){
+             espaniol ++;
+             printf("%s\t",matriz[j]);
+             printf("%s\n",fileWords);
+          }
+        }
+        memset(fileWords, 0, sizeof(fileWords));
+        indice = 0;
+      }
+      else{
+        fileWords[indice] = ch;
+        indice++;
+      }
+    }
+
+    float porcentaje = (((float) espaniol)/((float)count))*100;
+    //printf("%d\n",count);
+    printf("tienes un %c%.2f de posibilidades de que sea espaniol\n",'%',porcentaje);
+
+    fclose(fp);
+    /*for(i=0; i < count; i++){
+        printf("Esta es la plabra %d:\t%s\n",i+1,n[i]);
+    }*/
+    memset(fileWords, 0, sizeof(fileWords));
 }
 //necreonoteitninnevrutsetnheinnodtohmeoeobesnmrxiubratslelriaerniavsair
