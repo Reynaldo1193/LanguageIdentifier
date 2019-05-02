@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+// Hola
 void IngresarDatos (char* c);
 void Transposicion (char* porCifrar, int tamanio, int llave);
 void LanguageIdentifier(char matriz[0], int tamanio);
