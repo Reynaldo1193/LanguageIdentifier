@@ -5,7 +5,7 @@
 
 void IngresarDatos (char* c);
 void Transposicion (char* porCifrar, int tamanio, int llave);
-void LanguageIdentifier(char **matriz);
+void LanguageIdentifier(char matriz[0], int tamanio);
 int Menu();
 
 int main() {
@@ -28,7 +28,7 @@ void IngresarDatos (char* c){
 
 void Transposicion (char* porCifrar, int tamanio, int llave){
   int filas = (int)(tamanio/llave);
-  char matriz [llave][filas];
+  char matriz [llave][filas], matrizNueva[tamanio];
   int count = 0;
   for (int j = 0; j < filas; j++){
     for (int i = 0;  i < llave; i++) {
@@ -43,20 +43,22 @@ void Transposicion (char* porCifrar, int tamanio, int llave){
       }
     }
   }
-  printf("el numero de filas necesarias es: %d\n",filas );
-  printf("\nTu cadena cifrada con la llave %d: \n",llave);
+  int k=0;
+  printf("\nTu cadena cifrada con la llave %d es: \n",llave);
   for (int j = 0; j < llave; j++) {
     for (int i = 0; i < filas; i++) {
       printf("%c",matriz[j][i]);
+      matrizNueva[k]=matriz[j][i];
+      k++;
     }
     //printf("\t\talto\n");
   }
-  LanguageIdentifier(matriz);
+  LanguageIdentifier(matrizNueva, tamanio);
   printf("\n" );
 }
 
-void LanguageIdentifier(char **matriz){
-    int indice =0, count=0;
+void LanguageIdentifier(char matriz[0],int tamanio){
+    int indice =0;
     int espaniol=0;
     char ch, fileWords[25];
     FILE *fp;
@@ -66,20 +68,17 @@ void LanguageIdentifier(char **matriz){
     if (fp == NULL)
     {
       perror("Error while opening the file.\n");
-      return 1;
     }
+    else{
 
     while((ch = fgetc(fp)) != EOF){
       if (ch == '\n'){
         fileWords[indice+1]='\0';
         //printf("%s\n",fileWords);
-        for (int j = 0; j <= count; j++) {
-          if(strstr(matriz[j],fileWords) != nullptr ){
+          if(strstr(matriz,fileWords) != NULL ){
              espaniol ++;
-             printf("%s\t",matriz[j]);
-             printf("%s\n",fileWords);
+             printf("%s \n ",fileWords);
           }
-        }
         memset(fileWords, 0, sizeof(fileWords));
         indice = 0;
       }
@@ -88,15 +87,14 @@ void LanguageIdentifier(char **matriz){
         indice++;
       }
     }
-
-    float porcentaje = (((float) espaniol)/((float)count))*100;
     //printf("%d\n",count);
-    printf("tienes un %c%.2f de posibilidades de que sea espaniol\n",'%',porcentaje);
+    printf("se encontraron %d palabras que coinciden con el espaniol ",espaniol);
 
     fclose(fp);
     /*for(i=0; i < count; i++){
         printf("Esta es la plabra %d:\t%s\n",i+1,n[i]);
     }*/
     memset(fileWords, 0, sizeof(fileWords));
+  }
 }
 //necreonoteitninnevrutsetnheinnodtohmeoeobesnmrxiubratslelriaerniavsair
